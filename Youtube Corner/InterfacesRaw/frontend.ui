@@ -35,12 +35,27 @@
       <property name="styleSheet">
        <string notr="true">#header{
 	background-color: #111823;
+	border-bottom: 4px solid #37475c;
 }
 
-#header QLabel{
+#header QLabel, QPushButton{
 	color: white;
+	font-family: Arial;
+	font-weight: bold;
 }
-	</string>
+
+#headerMenu QPushButton{
+	font-size: 12px;
+	background-color:  #111823;
+	border: none;
+	padding: 10px 12px;
+	border-radius: 6px;
+}
+
+#headerMenu QPushButton:hover{
+	background-color: #21324a;
+	
+}</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -49,6 +64,9 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
        <item alignment="Qt::AlignLeft">
         <widget class="QFrame" name="headerLogo">
          <property name="frameShape">
@@ -83,7 +101,7 @@
          </layout>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignRight">
         <widget class="QFrame" name="headerMenu">
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -93,23 +111,23 @@
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QLabel" name="downloadToolButton">
+           <widget class="QPushButton" name="downloadToolButton">
             <property name="text">
-             <string>TextLabel</string>
+             <string>Descargar Música</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="queueToolButton">
+           <widget class="QPushButton" name="queueToolButton">
             <property name="text">
-             <string>TextLabel</string>
+             <string>Cola de Descarga</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="editToolButton">
+           <widget class="QPushButton" name="editorToolButton">
             <property name="text">
-             <string>TextLabel</string>
+             <string>Editar MP3</string>
             </property>
            </widget>
           </item>
@@ -121,6 +139,18 @@
     </item>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
+      <property name="styleSheet">
+       <string notr="true">#songDownloaderWidget{
+	background-color: #111823;
+}
+
+
+#songDownloaderWidget QLabel, QPushButton{
+	color: white;
+	font-family: Arial;
+	font-weight: bold;
+}</string>
+      </property>
       <widget class="QWidget" name="songDownloaderWidget">
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item alignment="Qt::AlignHCenter">
