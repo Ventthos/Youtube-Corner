@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1083</width>
+    <width>1025</width>
     <height>680</height>
    </rect>
   </property>
@@ -163,7 +163,50 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
-            <widget class="QFrame" name="frame_2">
+            <widget class="QFrame" name="frameDownloadMusicDetails">
+             <property name="styleSheet">
+              <string notr="true">#frameDownloadMusicDetails{
+	background-color: #21324a;
+	border-radius: 6px;
+}
+
+#titleDownloadSong{
+	font-weight: bold;
+	font-size: 13px;
+}
+
+#artistDownloadSong{
+	font-weight: normal;
+	font-size: 13px;	
+}
+
+#albumDownloadSong{
+	font-style: italic;
+	font-size: 11px;
+}
+
+#tiempoReproduccionSlider::groove:horizontal{
+	border: 1px solid #16488b;
+	height: 4px;
+}
+
+#tiempoReproduccionSlider::handle:horizontal{
+	background: #0f6af2;
+	width: 13px;
+	margin: -5px -1px;
+	border-radius: 5px;
+	border: 1px solid #0f6af2;
+}
+
+#tiempoReproduccionSlider::add-page::horizontal{
+	background-color: #16488b;
+}
+
+
+#tiempoReproduccionSlider::sub-page::horizontal{
+	background-color: #0f6af2;
+}</string>
+             </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -171,8 +214,14 @@
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
+              <property name="spacing">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QFrame" name="frame_3">
+               <widget class="QFrame" name="musicPreviewWidget">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -182,13 +231,37 @@
                 <layout class="QHBoxLayout" name="horizontalLayout_4">
                  <item>
                   <widget class="QLabel" name="label">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>75</width>
+                     <height>75</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>400</width>
+                     <height>400</height>
+                    </size>
+                   </property>
                    <property name="text">
                     <string>TextLabel</string>
+                   </property>
+                   <property name="scaledContents">
+                    <bool>true</bool>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QFrame" name="frame_4">
+                  <widget class="QFrame" name="stringInfoSongDownload">
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -197,21 +270,21 @@
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_3">
                     <item>
-                     <widget class="QLabel" name="label_2">
+                     <widget class="QLabel" name="titleDownloadSong">
                       <property name="text">
                        <string>TextLabel</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLabel" name="label_3">
+                     <widget class="QLabel" name="artistDownloadSong">
                       <property name="text">
                        <string>TextLabel</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLabel" name="label_4">
+                     <widget class="QLabel" name="albumDownloadSong">
                       <property name="text">
                        <string>TextLabel</string>
                       </property>
@@ -221,6 +294,19 @@
                   </widget>
                  </item>
                  <item>
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>200</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item alignment="Qt::AlignRight">
                   <widget class="QPushButton" name="pushButton">
                    <property name="text">
                     <string>PushButton</string>
@@ -239,8 +325,20 @@
                  <enum>QFrame::Raised</enum>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>9</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
                  <item>
-                  <widget class="QSlider" name="horizontalSlider">
+                  <widget class="QSlider" name="tiempoReproduccionSlider">
+                   <property name="pageStep">
+                    <number>1</number>
+                   </property>
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
@@ -255,17 +353,26 @@
                     <enum>QFrame::Raised</enum>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_5">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
                     <item>
                      <widget class="QLabel" name="label_5">
                       <property name="text">
-                       <string>TextLabel</string>
+                       <string>0:00</string>
                       </property>
                      </widget>
                     </item>
-                    <item>
+                    <item alignment="Qt::AlignRight">
                      <widget class="QLabel" name="label_6">
                       <property name="text">
-                       <string>TextLabel</string>
+                       <string>3:49</string>
                       </property>
                      </widget>
                     </item>
