@@ -40,12 +40,9 @@
 
 #header QLabel, QPushButton{
 	color: white;
-	font-family: Arial;
-	font-weight: bold;
 }
 
 #headerMenu QPushButton{
-	font-size: 12px;
 	background-color:  #111823;
 	border: none;
 	padding: 10px 12px;
@@ -112,6 +109,13 @@
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QPushButton" name="downloadToolButton">
+            <property name="font">
+             <font>
+              <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
              <string>Descargar Música</string>
             </property>
@@ -119,6 +123,13 @@
           </item>
           <item>
            <widget class="QPushButton" name="queueToolButton">
+            <property name="font">
+             <font>
+              <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
              <string>Cola de Descarga</string>
             </property>
@@ -126,6 +137,13 @@
           </item>
           <item>
            <widget class="QPushButton" name="editorToolButton">
+            <property name="font">
+             <font>
+              <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
              <string>Editar MP3</string>
             </property>
@@ -139,17 +157,77 @@
     </item>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
+      <property name="cursor">
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
       <property name="styleSheet">
-       <string notr="true">#songDownloaderWidget{
+       <string notr="true">#songDownloaderWidget, #findSongWidget{
 	background-color: #111823;
 }
 
 
 #songDownloaderWidget QLabel, QPushButton{
 	color: white;
-	font-family: Arial;
-	font-weight: bold;
+}
+
+#buttonOpenDetails{
+	background-color: #21324a;
+	border-radius: 6px;
+	padding: 8px 10px;
+	text-align: left;
+}
+
+#buttonOpenDetails:hover, #detailsSongDownloadScrollContents QPushButton:hover{
+	background-color: #37475c;
+}
+
+#songDetailsFieldDownload{
+	background-color: #4d5b6e;
+}
+
+detailsSongDownloadScroll{
+	border: none;
+}
+
+#detailsSongDownloadScrollContents{
+	background-color: #4d5b6e;
+	border:none;
+}
+
+#detailsSongDownloadScrollContents QFrame QLineEdit{
+	background-color: #182334;
+	border: 2px solid #2b3e59;
+	color: white;
+	padding: 4px;
+	border-radius: 8px;
+}
+
+#detailsSongDownloadScrollContents QPushButton, #botonCancelDownload, #botonAgregarCola{
+	background-color: #21324a;
+	border: none;
+	padding: 6px;
+	border-radius: 6px;
+}
+
+#botonDownloadSong{
+	background-color: #0d69ef;
+	border:  none;
+	padding: 8px;
+	border-radius: 10px;
+}
+
+#findSongContainer{
+	background-color: #21324a;
+	border-radius: 10px;
+	
+}
+
+#findSongContainer QLabel{
+	color: white;
 }</string>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
       </property>
       <widget class="QWidget" name="songDownloaderWidget">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -167,22 +245,7 @@
              <property name="styleSheet">
               <string notr="true">#frameDownloadMusicDetails{
 	background-color: #21324a;
-	border-radius: 6px;
-}
-
-#titleDownloadSong{
-	font-weight: bold;
-	font-size: 13px;
-}
-
-#artistDownloadSong{
-	font-weight: normal;
-	font-size: 13px;	
-}
-
-#albumDownloadSong{
-	font-style: italic;
-	font-size: 11px;
+	border-radius: 12px;
 }
 
 #tiempoReproduccionSlider::groove:horizontal{
@@ -205,6 +268,17 @@
 
 #tiempoReproduccionSlider::sub-page::horizontal{
 	background-color: #0f6af2;
+}
+
+#buttonPlayDownload{
+	background-color: #0d69ef;
+	border:  none;
+	padding: 8px;
+	border-radius: 10px;
+}
+
+#buttonPlayDownload:hover{
+	background-color:#0c5fd7;
 }</string>
              </property>
              <property name="frameShape">
@@ -230,7 +304,7 @@
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_4">
                  <item>
-                  <widget class="QLabel" name="label">
+                  <widget class="QLabel" name="imgMusicDownload">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                      <horstretch>0</horstretch>
@@ -262,6 +336,9 @@
                  </item>
                  <item>
                   <widget class="QFrame" name="stringInfoSongDownload">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -271,6 +348,14 @@
                    <layout class="QVBoxLayout" name="verticalLayout_3">
                     <item>
                      <widget class="QLabel" name="titleDownloadSong">
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                        <pointsize>11</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>TextLabel</string>
                       </property>
@@ -278,6 +363,14 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="artistDownloadSong">
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                        <pointsize>11</pointsize>
+                        <weight>50</weight>
+                        <bold>false</bold>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>TextLabel</string>
                       </property>
@@ -285,6 +378,13 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="albumDownloadSong">
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                        <pointsize>10</pointsize>
+                        <italic>true</italic>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>TextLabel</string>
                       </property>
@@ -307,9 +407,13 @@
                   </spacer>
                  </item>
                  <item alignment="Qt::AlignRight">
-                  <widget class="QPushButton" name="pushButton">
+                  <widget class="QPushButton" name="buttonPlayDownload">
                    <property name="text">
-                    <string>PushButton</string>
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>../img/white-play-icon-png-6.webp</normaloff>../img/white-play-icon-png-6.webp</iconset>
                    </property>
                   </widget>
                  </item>
@@ -317,7 +421,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="frame_5">
+               <widget class="QFrame" name="reproduccionContainer">
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -345,7 +449,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QFrame" name="frame_6">
+                  <widget class="QFrame" name="timeeproductionContainer">
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -363,14 +467,24 @@
                      <number>0</number>
                     </property>
                     <item>
-                     <widget class="QLabel" name="label_5">
+                     <widget class="QLabel" name="pastTimeReproduction">
+                      <property name="font">
+                       <font>
+                        <pointsize>9</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>0:00</string>
                       </property>
                      </widget>
                     </item>
                     <item alignment="Qt::AlignRight">
-                     <widget class="QLabel" name="label_6">
+                     <widget class="QLabel" name="restingTimeReproduction">
+                      <property name="font">
+                       <font>
+                        <pointsize>9</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>3:49</string>
                       </property>
@@ -386,7 +500,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QFrame" name="frame_7">
+            <widget class="QFrame" name="detailSongsDownload">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -394,15 +508,47 @@
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QPushButton" name="pushButton_2">
+               <widget class="QPushButton" name="buttonOpenDetails">
+                <property name="font">
+                 <font>
+                  <pointsize>9</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::RightToLeft</enum>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
                 <property name="text">
-                 <string>PushButton</string>
+                 <string>Song Details</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../img/white-play-icon-png-6.webp</normaloff>../img/white-play-icon-png-6.webp</iconset>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="frame_8">
+               <widget class="QFrame" name="songDetailsFieldDownload">
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -410,15 +556,270 @@
                  <enum>QFrame::Raised</enum>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <property name="leftMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>5</number>
+                 </property>
                  <item>
-                  <widget class="QLabel" name="label_7">
-                   <property name="text">
-                    <string>TextLabel</string>
+                  <widget class="QScrollArea" name="detailsSongDownloadScroll">
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
                    </property>
+                   <property name="widgetResizable">
+                    <bool>true</bool>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                   </property>
+                   <widget class="QWidget" name="detailsSongDownloadScrollContents">
+                    <property name="geometry">
+                     <rect>
+                      <x>0</x>
+                      <y>0</y>
+                      <width>443</width>
+                      <height>276</height>
+                     </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_10">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="frameInfoSong">
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_9">
+                        <property name="topMargin">
+                         <number>6</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>6</number>
+                        </property>
+                        <item>
+                         <widget class="QLabel" name="labelTitulo">
+                          <property name="font">
+                           <font>
+                            <family>Arial</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Título</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="lineEditTitulo">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Arial</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="acceptDrops">
+                           <bool>false</bool>
+                          </property>
+                          <property name="frame">
+                           <bool>true</bool>
+                          </property>
+                          <property name="readOnly">
+                           <bool>false</bool>
+                          </property>
+                          <property name="placeholderText">
+                           <string>Título</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frameInfoSong_2">
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_11">
+                        <property name="topMargin">
+                         <number>6</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>6</number>
+                        </property>
+                        <item>
+                         <widget class="QLabel" name="labelArtista">
+                          <property name="font">
+                           <font>
+                            <family>Arial</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Artista</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="lineEditArtista">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Arial</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="acceptDrops">
+                           <bool>false</bool>
+                          </property>
+                          <property name="frame">
+                           <bool>true</bool>
+                          </property>
+                          <property name="readOnly">
+                           <bool>false</bool>
+                          </property>
+                          <property name="placeholderText">
+                           <string>Artista</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frameInfoSong_3">
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_12">
+                        <property name="topMargin">
+                         <number>6</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>6</number>
+                        </property>
+                        <item>
+                         <widget class="QLabel" name="labelTituloAlbum">
+                          <property name="font">
+                           <font>
+                            <family>Arial</family>
+                            <pointsize>11</pointsize>
+                           </font>
+                          </property>
+                          <property name="text">
+                           <string>Album</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="lineEditAlbum">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Arial</family>
+                            <pointsize>12</pointsize>
+                           </font>
+                          </property>
+                          <property name="acceptDrops">
+                           <bool>false</bool>
+                          </property>
+                          <property name="frame">
+                           <bool>true</bool>
+                          </property>
+                          <property name="readOnly">
+                           <bool>false</bool>
+                          </property>
+                          <property name="placeholderText">
+                           <string>Album</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frameBotonesDetailDownload">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_7">
+                        <item>
+                         <widget class="QPushButton" name="editarPortadaDownloadButton">
+                          <property name="text">
+                           <string>Editar portada</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="editarAudioDownloadButton">
+                          <property name="text">
+                           <string>Editar audio</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </widget>
                   </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="lineEdit"/>
                  </item>
                 </layout>
                </widget>
@@ -426,8 +827,8 @@
              </layout>
             </widget>
            </item>
-           <item>
-            <widget class="QFrame" name="frame_9">
+           <item alignment="Qt::AlignBottom">
+            <widget class="QFrame" name="frameBotonesFinales">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -436,21 +837,160 @@
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
-               <widget class="QPushButton" name="pushButton_3">
+               <widget class="QPushButton" name="botonCancelDownload">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>9</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
-                 <string>PushButton</string>
+                 <string>Volver</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_4">
+               <widget class="QPushButton" name="botonAgregarCola">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>9</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
-                 <string>PushButton</string>
+                 <string>Agregar a la cola</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_5">
+               <widget class="QPushButton" name="botonDownloadSong">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>9</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Descargar</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="findSongWidget">
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+         <widget class="QWidget" name="findSongContainer" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <property name="leftMargin">
+            <number>30</number>
+           </property>
+           <property name="topMargin">
+            <number>40</number>
+           </property>
+           <property name="rightMargin">
+            <number>30</number>
+           </property>
+           <property name="bottomMargin">
+            <number>40</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>20</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Descargas</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignHCenter">
+            <widget class="Line" name="line">
+             <property name="minimumSize">
+              <size>
+               <width>500</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>500</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>11</pointsize>
+               <weight>50</weight>
+               <italic>false</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Copie el link de Youtube en el siguiente campo y aprete el botón para empezar la búsqueda</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>20</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="lineEdit"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton">
                 <property name="text">
                  <string>PushButton</string>
                 </property>
@@ -464,7 +1004,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_2"/>
      </widget>
     </item>
    </layout>
