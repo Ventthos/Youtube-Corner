@@ -177,7 +177,7 @@
 	text-align: left;
 }
 
-#buttonOpenDetails:hover, #detailsSongDownloadScrollContents QPushButton:hover{
+#buttonOpenDetails:hover, #detailsSongDownloadScrollContents QPushButton:hover,  #botonCancelDownload:hover, #botonAgregarCola:hover{
 	background-color: #37475c;
 }
 
@@ -194,7 +194,7 @@ detailsSongDownloadScroll{
 	border:none;
 }
 
-#detailsSongDownloadScrollContents QFrame QLineEdit{
+#detailsSongDownloadScrollContents QFrame QLineEdit, #lineEditEntradaLink{
 	background-color: #182334;
 	border: 2px solid #2b3e59;
 	color: white;
@@ -209,11 +209,15 @@ detailsSongDownloadScroll{
 	border-radius: 6px;
 }
 
-#botonDownloadSong{
+#botonDownloadSong, #pushButtonBuscarLink{
 	background-color: #0d69ef;
 	border:  none;
 	padding: 8px;
 	border-radius: 10px;
+}
+
+#botonDownloadSong:hover, #pushButtonBuscarLink:hover{
+	background-color:#0c5fd7;
 }
 
 #findSongContainer{
@@ -224,10 +228,25 @@ detailsSongDownloadScroll{
 
 #findSongContainer QLabel{
 	color: white;
+}
+
+#lineEditEntradaLink{
+	border: 2px solid #0d69f0 ;
+	 border-top-right-radius:0px;
+	border-bottom-right-radius:0px;
+	border-right: none;
+
+}
+
+#pushButtonBuscarLink{
+	border-top-left-radius:0px;
+	border-bottom-left-radius:0px;
+	border: 2px solid #0d69f0 ;
+	border-left: none;
 }</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="songDownloaderWidget">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -319,8 +338,8 @@ detailsSongDownloadScroll{
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>400</width>
-                     <height>400</height>
+                     <width>80</width>
+                     <height>80</height>
                     </size>
                    </property>
                    <property name="text">
@@ -570,8 +589,17 @@ detailsSongDownloadScroll{
                  </property>
                  <item>
                   <widget class="QScrollArea" name="detailsSongDownloadScroll">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="sizeAdjustPolicy">
+                    <enum>QAbstractScrollArea::AdjustIgnored</enum>
                    </property>
                    <property name="widgetResizable">
                     <bool>true</bool>
@@ -890,7 +918,7 @@ detailsSongDownloadScroll{
        </layout>
       </widget>
       <widget class="QWidget" name="findSongWidget">
-       <layout class="QVBoxLayout" name="verticalLayout_13">
+       <layout class="QVBoxLayout" name="verticalLayout_13" stretch="5,1">
         <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
          <widget class="QWidget" name="findSongContainer" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_14">
@@ -963,7 +991,7 @@ detailsSongDownloadScroll{
             </widget>
            </item>
            <item>
-            <widget class="QFrame" name="frame">
+            <widget class="QFrame" name="frameEntradasLink">
              <property name="styleSheet">
               <string notr="true"/>
              </property>
@@ -987,12 +1015,34 @@ detailsSongDownloadScroll{
                <number>0</number>
               </property>
               <item>
-               <widget class="QLineEdit" name="lineEdit"/>
+               <widget class="QLineEdit" name="lineEditEntradaLink">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+               </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton">
+               <widget class="QPushButton" name="pushButtonBuscarLink">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
-                 <string>PushButton</string>
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../img/lupa.png</normaloff>../img/lupa.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>13</width>
+                  <height>13</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -1000,6 +1050,16 @@ detailsSongDownloadScroll{
             </widget>
            </item>
           </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="frame_2">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
          </widget>
         </item>
        </layout>

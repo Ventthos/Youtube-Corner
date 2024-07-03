@@ -117,7 +117,7 @@ class Ui_MainWindow(object):
 "    text-align: left;\n"
 "}\n"
 "\n"
-"#buttonOpenDetails:hover, #detailsSongDownloadScrollContents QPushButton:hover{\n"
+"#buttonOpenDetails:hover, #detailsSongDownloadScrollContents QPushButton:hover,  #botonCancelDownload:hover, #botonAgregarCola:hover{\n"
 "    background-color: #37475c;\n"
 "}\n"
 "\n"
@@ -134,7 +134,7 @@ class Ui_MainWindow(object):
 "    border:none;\n"
 "}\n"
 "\n"
-"#detailsSongDownloadScrollContents QFrame QLineEdit{\n"
+"#detailsSongDownloadScrollContents QFrame QLineEdit, #lineEditEntradaLink{\n"
 "    background-color: #182334;\n"
 "    border: 2px solid #2b3e59;\n"
 "    color: white;\n"
@@ -149,11 +149,15 @@ class Ui_MainWindow(object):
 "    border-radius: 6px;\n"
 "}\n"
 "\n"
-"#botonDownloadSong{\n"
+"#botonDownloadSong, #pushButtonBuscarLink{\n"
 "    background-color: #0d69ef;\n"
 "    border:  none;\n"
 "    padding: 8px;\n"
 "    border-radius: 10px;\n"
+"}\n"
+"\n"
+"#botonDownloadSong:hover, #pushButtonBuscarLink:hover{\n"
+"    background-color:#0c5fd7;\n"
 "}\n"
 "\n"
 "#findSongContainer{\n"
@@ -164,6 +168,21 @@ class Ui_MainWindow(object):
 "\n"
 "#findSongContainer QLabel{\n"
 "    color: white;\n"
+"}\n"
+"\n"
+"#lineEditEntradaLink{\n"
+"    border: 2px solid #0d69f0 ;\n"
+"     border-top-right-radius:0px;\n"
+"    border-bottom-right-radius:0px;\n"
+"    border-right: none;\n"
+"\n"
+"}\n"
+"\n"
+"#pushButtonBuscarLink{\n"
+"    border-top-left-radius:0px;\n"
+"    border-bottom-left-radius:0px;\n"
+"    border: 2px solid #0d69f0 ;\n"
+"    border-left: none;\n"
 "}")
         self.stackedWidget.setObjectName("stackedWidget")
         self.songDownloaderWidget = QtWidgets.QWidget()
@@ -234,7 +253,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.imgMusicDownload.sizePolicy().hasHeightForWidth())
         self.imgMusicDownload.setSizePolicy(sizePolicy)
         self.imgMusicDownload.setMinimumSize(QtCore.QSize(75, 75))
-        self.imgMusicDownload.setMaximumSize(QtCore.QSize(400, 400))
+        self.imgMusicDownload.setMaximumSize(QtCore.QSize(80, 80))
         self.imgMusicDownload.setScaledContents(True)
         self.imgMusicDownload.setWordWrap(True)
         self.imgMusicDownload.setObjectName("imgMusicDownload")
@@ -346,12 +365,18 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.setContentsMargins(5, 0, 5, 5)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.detailsSongDownloadScroll = QtWidgets.QScrollArea(self.songDetailsFieldDownload)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.detailsSongDownloadScroll.sizePolicy().hasHeightForWidth())
+        self.detailsSongDownloadScroll.setSizePolicy(sizePolicy)
         self.detailsSongDownloadScroll.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.detailsSongDownloadScroll.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
         self.detailsSongDownloadScroll.setWidgetResizable(True)
         self.detailsSongDownloadScroll.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.detailsSongDownloadScroll.setObjectName("detailsSongDownloadScroll")
         self.detailsSongDownloadScrollContents = QtWidgets.QWidget()
-        self.detailsSongDownloadScrollContents.setGeometry(QtCore.QRect(0, 0, 443, 276))
+        self.detailsSongDownloadScrollContents.setGeometry(QtCore.QRect(0, 0, 449, 304))
         self.detailsSongDownloadScrollContents.setObjectName("detailsSongDownloadScrollContents")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.detailsSongDownloadScrollContents)
         self.verticalLayout_10.setSpacing(0)
@@ -541,29 +566,49 @@ class Ui_MainWindow(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.verticalLayout_14.addWidget(self.label_2)
-        self.frame = QtWidgets.QFrame(self.findSongContainer)
-        self.frame.setStyleSheet("")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.frame)
+        self.frameEntradasLink = QtWidgets.QFrame(self.findSongContainer)
+        self.frameEntradasLink.setStyleSheet("")
+        self.frameEntradasLink.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frameEntradasLink.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frameEntradasLink.setObjectName("frameEntradasLink")
+        self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.frameEntradasLink)
         self.horizontalLayout_8.setContentsMargins(0, 20, 0, -1)
         self.horizontalLayout_8.setSpacing(0)
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
-        self.lineEdit = QtWidgets.QLineEdit(self.frame)
-        self.lineEdit.setObjectName("lineEdit")
-        self.horizontalLayout_8.addWidget(self.lineEdit)
-        self.pushButton = QtWidgets.QPushButton(self.frame)
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout_8.addWidget(self.pushButton)
-        self.verticalLayout_14.addWidget(self.frame)
+        self.lineEditEntradaLink = QtWidgets.QLineEdit(self.frameEntradasLink)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.lineEditEntradaLink.setFont(font)
+        self.lineEditEntradaLink.setObjectName("lineEditEntradaLink")
+        self.horizontalLayout_8.addWidget(self.lineEditEntradaLink)
+        self.pushButtonBuscarLink = QtWidgets.QPushButton(self.frameEntradasLink)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButtonBuscarLink.sizePolicy().hasHeightForWidth())
+        self.pushButtonBuscarLink.setSizePolicy(sizePolicy)
+        self.pushButtonBuscarLink.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(".\\InterfacesRaw\\../img/lupa.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButtonBuscarLink.setIcon(icon1)
+        self.pushButtonBuscarLink.setIconSize(QtCore.QSize(13, 13))
+        self.pushButtonBuscarLink.setObjectName("pushButtonBuscarLink")
+        self.horizontalLayout_8.addWidget(self.pushButtonBuscarLink)
+        self.verticalLayout_14.addWidget(self.frameEntradasLink)
         self.verticalLayout_13.addWidget(self.findSongContainer, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+        self.frame_2 = QtWidgets.QFrame(self.findSongWidget)
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.verticalLayout_13.addWidget(self.frame_2)
+        self.verticalLayout_13.setStretch(0, 5)
+        self.verticalLayout_13.setStretch(1, 1)
         self.stackedWidget.addWidget(self.findSongWidget)
         self.verticalLayout.addWidget(self.stackedWidget)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -594,7 +639,6 @@ class Ui_MainWindow(object):
         self.botonDownloadSong.setText(_translate("MainWindow", "Descargar"))
         self.label.setText(_translate("MainWindow", "Descargas"))
         self.label_2.setText(_translate("MainWindow", "Copie el link de Youtube en el siguiente campo y aprete el botón para empezar la búsqueda"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
 
 
 if __name__ == "__main__":
