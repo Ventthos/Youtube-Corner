@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1025</width>
-    <height>680</height>
+    <height>787</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -612,8 +612,8 @@ detailsSongDownloadScroll{
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>443</width>
-                      <height>276</height>
+                      <width>478</width>
+                      <height>315</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_10">

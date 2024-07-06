@@ -1,25 +1,30 @@
 from InterfacesRaw.Carga import Ui_Dialog
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QDialog, QMainWindow
+from PyQt5.QtWidgets import QDialog, QMainWindow, QApplication
 from PyQt5.QtGui import QMovie
 
-class PantallaCargaPorcentaje(QMainWindow):
+class PantallaCargaPorcentaje(QDialog, Ui_Dialog):
     def __init__(self, titulo: str, porcentajeAct: bool, porcentaje: str = ""):
         super().__init__()
-        self.ui = Ui_Dialog()
-        self.ui.setupUi(self)
-        ruta_gif = "../img/loading2.gif"
-        gif = QMovie(ruta_gif)
-        self.ui.imagen.setMovie(gif)
-        self.ui.Texto.setText(titulo)
+        super().setupUi(self)
+        ruta_gif = "./img/loading2.gif"
+        self.gif = QMovie(ruta_gif)
+        self.imagen.setMovie(self.gif)
+
+        self.Texto.setText(titulo)
         self.setWindowTitle("Cargando...")
         if porcentajeAct:
-            self.ui.Porcentaje.setText(porcentaje)
+            self.Porcentaje.setText(porcentaje)
         else:
-            self.ui.Porcentaje.hide()
+            self.Porcentaje.hide()
 
-        gif.start()
+        self.gif.start()
 
-        self.show()
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    MainWindow = PantallaCargaPorcentaje("aaaa", False)
+    MainWindow.show()
+    sys.exit(app.exec_())
 
 

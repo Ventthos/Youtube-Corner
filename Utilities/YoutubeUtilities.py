@@ -7,9 +7,12 @@ import requests
 
 class YoutubeUtilities:
     @staticmethod
-    def downloadMP4File(link, directory):
+    def downloadMP4File(link: str, directory: str, onlyAudio: bool):
         obj = pytube.YouTube(link)
-        direccionMP4 = obj.streams.get_audio_only().download(output_path=directory)
+        if onlyAudio:
+            direccionMP4 = obj.streams.get_audio_only().download(output_path=directory)
+        else:
+            direccionMP4 = obj.streams.get_highest_resolution().download(output_path=directory)
         return direccionMP4
 
     @staticmethod
@@ -22,7 +25,7 @@ class YoutubeUtilities:
         return mp3
 
     @staticmethod
-    def changeAtributes(mp3, title, artist, album, img_route) -> None:
+    def changeAtributesToMP3(mp3, title, artist, album, img_route) -> None:
         audio = eyed3.load(mp3)
         audio.initTag()
         audio.tag.title = u"{}".format(title)
