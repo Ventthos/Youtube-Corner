@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1025, 680)
+        MainWindow.resize(1025, 787)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -53,8 +53,13 @@ class Ui_MainWindow(object):
         self.headerLogo.setFrameShadow(QtWidgets.QFrame.Raised)
         self.headerLogo.setObjectName("headerLogo")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.headerLogo)
+        self.horizontalLayout_2.setContentsMargins(-1, 0, -1, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.imgLogo = QtWidgets.QLabel(self.headerLogo)
+        self.imgLogo.setMaximumSize(QtCore.QSize(40, 40))
+        self.imgLogo.setText("")
+        self.imgLogo.setPixmap(QtGui.QPixmap(".\\InterfacesRaw\\../img/youtube-app--icon.webp"))
+        self.imgLogo.setScaledContents(True)
         self.imgLogo.setObjectName("imgLogo")
         self.horizontalLayout_2.addWidget(self.imgLogo)
         self.stringLogo = QtWidgets.QLabel(self.headerLogo)
@@ -101,12 +106,12 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.header)
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
         self.stackedWidget.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-        self.stackedWidget.setStyleSheet("#songDownloaderWidget, #findSongWidget{\n"
+        self.stackedWidget.setStyleSheet("#songDownloaderWidget, #findSongWidget, #queueWidget{\n"
 "    background-color: #111823;\n"
 "}\n"
 "\n"
 "\n"
-"#songDownloaderWidget QLabel, QPushButton{\n"
+"#songDownloaderWidget QLabel, QPushButton, #frameDatosQueue QLabel{\n"
 "    color: white;\n"
 "}\n"
 "\n"
@@ -117,7 +122,7 @@ class Ui_MainWindow(object):
 "    text-align: left;\n"
 "}\n"
 "\n"
-"#buttonOpenDetails:hover, #detailsSongDownloadScrollContents QPushButton:hover,  #botonCancelDownload:hover, #botonAgregarCola:hover{\n"
+"#buttonOpenDetails:hover, #detailsSongDownloadScrollContents QPushButton:hover,  #botonCancelDownload:hover, #botonAgregarCola:hover, #buttonReiniciarCola:hover{\n"
 "    background-color: #37475c;\n"
 "}\n"
 "\n"
@@ -129,8 +134,14 @@ class Ui_MainWindow(object):
 "    border: none;\n"
 "}\n"
 "\n"
+"\n"
 "#detailsSongDownloadScrollContents{\n"
 "    background-color: #4d5b6e;\n"
+"    border:none;\n"
+"}\n"
+"\n"
+"#scrollAreaWidgetContentsQueue{\n"
+"    background-color: #182334;\n"
 "    border:none;\n"
 "}\n"
 "\n"
@@ -142,21 +153,21 @@ class Ui_MainWindow(object):
 "    border-radius: 8px;\n"
 "}\n"
 "\n"
-"#detailsSongDownloadScrollContents QPushButton, #botonCancelDownload, #botonAgregarCola{\n"
+"#detailsSongDownloadScrollContents QPushButton, #botonCancelDownload, #botonAgregarCola, #buttonReiniciarCola{\n"
 "    background-color: #21324a;\n"
 "    border: none;\n"
 "    padding: 6px;\n"
 "    border-radius: 6px;\n"
 "}\n"
 "\n"
-"#botonDownloadSong, #pushButtonBuscarLink{\n"
+"#botonDownloadSong, #pushButtonBuscarLink, #buttonDescargarCola{\n"
 "    background-color: #0d69ef;\n"
 "    border:  none;\n"
 "    padding: 8px;\n"
 "    border-radius: 10px;\n"
 "}\n"
 "\n"
-"#botonDownloadSong:hover, #pushButtonBuscarLink:hover{\n"
+"#botonDownloadSong:hover, #pushButtonBuscarLink:hover, #buttonDescargarCola:hover{\n"
 "    background-color:#0c5fd7;\n"
 "}\n"
 "\n"
@@ -183,6 +194,10 @@ class Ui_MainWindow(object):
 "    border-bottom-left-radius:0px;\n"
 "    border: 2px solid #0d69f0 ;\n"
 "    border-left: none;\n"
+"}\n"
+"\n"
+" #labelTituloPeso, #labelTituloNCanciones, #buttonReiniciarCola{\n"
+"    margin-top: 20px;\n"
 "}")
         self.stackedWidget.setObjectName("stackedWidget")
         self.songDownloaderWidget = QtWidgets.QWidget()
@@ -376,7 +391,7 @@ class Ui_MainWindow(object):
         self.detailsSongDownloadScroll.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.detailsSongDownloadScroll.setObjectName("detailsSongDownloadScroll")
         self.detailsSongDownloadScrollContents = QtWidgets.QWidget()
-        self.detailsSongDownloadScrollContents.setGeometry(QtCore.QRect(0, 0, 449, 304))
+        self.detailsSongDownloadScrollContents.setGeometry(QtCore.QRect(0, 0, 478, 315))
         self.detailsSongDownloadScrollContents.setObjectName("detailsSongDownloadScrollContents")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.detailsSongDownloadScrollContents)
         self.verticalLayout_10.setSpacing(0)
@@ -604,17 +619,110 @@ class Ui_MainWindow(object):
         self.verticalLayout_13.setStretch(0, 5)
         self.verticalLayout_13.setStretch(1, 1)
         self.stackedWidget.addWidget(self.findSongWidget)
+        self.queueWidget = QtWidgets.QWidget()
+        self.queueWidget.setObjectName("queueWidget")
+        self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.queueWidget)
+        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
+        self.scrollAreaQueue = QtWidgets.QScrollArea(self.queueWidget)
+        self.scrollAreaQueue.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.scrollAreaQueue.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.scrollAreaQueue.setWidgetResizable(True)
+        self.scrollAreaQueue.setObjectName("scrollAreaQueue")
+        self.scrollAreaWidgetContentsQueue = QtWidgets.QWidget()
+        self.scrollAreaWidgetContentsQueue.setGeometry(QtCore.QRect(0, 0, 667, 687))
+        self.scrollAreaWidgetContentsQueue.setObjectName("scrollAreaWidgetContentsQueue")
+        self.scrollAreaQueue.setWidget(self.scrollAreaWidgetContentsQueue)
+        self.horizontalLayout_9.addWidget(self.scrollAreaQueue)
+        self.frameDerechoQueue = QtWidgets.QFrame(self.queueWidget)
+        self.frameDerechoQueue.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frameDerechoQueue.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frameDerechoQueue.setObjectName("frameDerechoQueue")
+        self.verticalLayout_16 = QtWidgets.QVBoxLayout(self.frameDerechoQueue)
+        self.verticalLayout_16.setObjectName("verticalLayout_16")
+        self.frameDatosQueue = QtWidgets.QFrame(self.frameDerechoQueue)
+        self.frameDatosQueue.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frameDatosQueue.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frameDatosQueue.setObjectName("frameDatosQueue")
+        self.verticalLayout_15 = QtWidgets.QVBoxLayout(self.frameDatosQueue)
+        self.verticalLayout_15.setObjectName("verticalLayout_15")
+        self.tituloQueue = QtWidgets.QLabel(self.frameDatosQueue)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.tituloQueue.setFont(font)
+        self.tituloQueue.setAlignment(QtCore.Qt.AlignCenter)
+        self.tituloQueue.setObjectName("tituloQueue")
+        self.verticalLayout_15.addWidget(self.tituloQueue)
+        self.line_2 = QtWidgets.QFrame(self.frameDatosQueue)
+        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
+        self.verticalLayout_15.addWidget(self.line_2)
+        self.labelTituloNCanciones = QtWidgets.QLabel(self.frameDatosQueue)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.labelTituloNCanciones.setFont(font)
+        self.labelTituloNCanciones.setObjectName("labelTituloNCanciones")
+        self.verticalLayout_15.addWidget(self.labelTituloNCanciones)
+        self.labelDisplayNCanciones = QtWidgets.QLabel(self.frameDatosQueue)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.labelDisplayNCanciones.setFont(font)
+        self.labelDisplayNCanciones.setObjectName("labelDisplayNCanciones")
+        self.verticalLayout_15.addWidget(self.labelDisplayNCanciones)
+        self.labelTituloPeso = QtWidgets.QLabel(self.frameDatosQueue)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.labelTituloPeso.setFont(font)
+        self.labelTituloPeso.setObjectName("labelTituloPeso")
+        self.verticalLayout_15.addWidget(self.labelTituloPeso)
+        self.labelDisplayPeso = QtWidgets.QLabel(self.frameDatosQueue)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.labelDisplayPeso.setFont(font)
+        self.labelDisplayPeso.setObjectName("labelDisplayPeso")
+        self.verticalLayout_15.addWidget(self.labelDisplayPeso)
+        self.buttonReiniciarCola = QtWidgets.QPushButton(self.frameDatosQueue)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.buttonReiniciarCola.setFont(font)
+        self.buttonReiniciarCola.setObjectName("buttonReiniciarCola")
+        self.verticalLayout_15.addWidget(self.buttonReiniciarCola)
+        self.buttonDescargarCola = QtWidgets.QPushButton(self.frameDatosQueue)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.buttonDescargarCola.setFont(font)
+        self.buttonDescargarCola.setObjectName("buttonDescargarCola")
+        self.verticalLayout_15.addWidget(self.buttonDescargarCola)
+        self.verticalLayout_16.addWidget(self.frameDatosQueue)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 369, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_16.addItem(spacerItem2)
+        self.horizontalLayout_9.addWidget(self.frameDerechoQueue)
+        self.horizontalLayout_9.setStretch(0, 2)
+        self.horizontalLayout_9.setStretch(1, 1)
+        self.stackedWidget.addWidget(self.queueWidget)
         self.verticalLayout.addWidget(self.stackedWidget)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.imgLogo.setText(_translate("MainWindow", "TextLabel"))
         self.stringLogo.setText(_translate("MainWindow", "Youtube Corner"))
         self.downloadToolButton.setText(_translate("MainWindow", "Descargar Música"))
         self.queueToolButton.setText(_translate("MainWindow", "Cola de Descarga"))
@@ -639,6 +747,13 @@ class Ui_MainWindow(object):
         self.botonDownloadSong.setText(_translate("MainWindow", "Descargar"))
         self.label.setText(_translate("MainWindow", "Descargas"))
         self.label_2.setText(_translate("MainWindow", "Copie el link de Youtube en el siguiente campo y aprete el botón para empezar la búsqueda"))
+        self.tituloQueue.setText(_translate("MainWindow", "Cola"))
+        self.labelTituloNCanciones.setText(_translate("MainWindow", "Cantidad de canciones"))
+        self.labelDisplayNCanciones.setText(_translate("MainWindow", "TextLabel"))
+        self.labelTituloPeso.setText(_translate("MainWindow", "Tamaño aproximado"))
+        self.labelDisplayPeso.setText(_translate("MainWindow", "TextLabel"))
+        self.buttonReiniciarCola.setText(_translate("MainWindow", "Vaciar Cola"))
+        self.buttonDescargarCola.setText(_translate("MainWindow", "Descargar Cola"))
 
 
 if __name__ == "__main__":

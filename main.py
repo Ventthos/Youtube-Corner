@@ -1,5 +1,6 @@
 from InterfacesRaw.MainApp import Ui_MainWindow
 from CompleteUI.pantallasCarga import PantallaCargaPorcentaje
+from Utilities.Cancion import Cancion
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit
 from PyQt5.QtGui import QPixmap
@@ -20,6 +21,8 @@ class MainApplication(Ui_MainWindow, QMainWindow):
 
         self.pantallaCarga = None
         self.linkActual = ""
+        self.queue: [Cancion] = []
+
         self.songDetailsFieldDownload.hide()
         self.stackedWidget.setCurrentIndex(1)
 
@@ -93,6 +96,15 @@ class MainApplication(Ui_MainWindow, QMainWindow):
     def updatePercentaje(self, porcentaje):
         self.pantallaCarga.Porcentaje.setText(f"{porcentaje}%")
 
+    def addToQueue(self):
+        self.queue.append(Cancion(
+            self.titleDownloadSong.text(),
+            self.artistDownloadSong.text(),
+            self.albumDownloadSong.text(),
+            self.linkActual,
+            self.imgMusicDownload.pixmap()
+        ))
+        messagebox.showinfo("Listo", "La canción se ha aregado a la cola, descarguela en la interfaz de cola")
 
 
 class FindSongThread(QThread):

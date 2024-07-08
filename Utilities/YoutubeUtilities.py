@@ -37,6 +37,7 @@ class YoutubeUtilities:
     @staticmethod
     def getVideoInfo(link):
         obj = pytube.YouTube(link)
+
         return obj.title, obj.author, obj.length
 
     @staticmethod

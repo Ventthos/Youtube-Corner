@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1025</width>
-    <height>787</height>
+    <height>682</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,10 +73,28 @@
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QLabel" name="imgLogo">
+            <property name="maximumSize">
+             <size>
+              <width>40</width>
+              <height>40</height>
+             </size>
+            </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>../img/youtube-app--icon.webp</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -161,12 +179,12 @@
        <cursorShape>ArrowCursor</cursorShape>
       </property>
       <property name="styleSheet">
-       <string notr="true">#songDownloaderWidget, #findSongWidget{
+       <string notr="true">#songDownloaderWidget, #findSongWidget, #queueWidget{
 	background-color: #111823;
 }
 
 
-#songDownloaderWidget QLabel, QPushButton{
+#songDownloaderWidget QLabel, QPushButton, #frameDatosQueue QLabel{
 	color: white;
 }
 
@@ -177,7 +195,7 @@
 	text-align: left;
 }
 
-#buttonOpenDetails:hover, #detailsSongDownloadScrollContents QPushButton:hover,  #botonCancelDownload:hover, #botonAgregarCola:hover{
+#buttonOpenDetails:hover, #detailsSongDownloadScrollContents QPushButton:hover,  #botonCancelDownload:hover, #botonAgregarCola:hover, #buttonReiniciarCola:hover{
 	background-color: #37475c;
 }
 
@@ -189,8 +207,14 @@ detailsSongDownloadScroll{
 	border: none;
 }
 
+
 #detailsSongDownloadScrollContents{
 	background-color: #4d5b6e;
+	border:none;
+}
+
+#scrollAreaWidgetContentsQueue{
+	background-color: #182334;
 	border:none;
 }
 
@@ -202,21 +226,21 @@ detailsSongDownloadScroll{
 	border-radius: 8px;
 }
 
-#detailsSongDownloadScrollContents QPushButton, #botonCancelDownload, #botonAgregarCola{
+#detailsSongDownloadScrollContents QPushButton, #botonCancelDownload, #botonAgregarCola, #buttonReiniciarCola{
 	background-color: #21324a;
 	border: none;
 	padding: 6px;
 	border-radius: 6px;
 }
 
-#botonDownloadSong, #pushButtonBuscarLink{
+#botonDownloadSong, #pushButtonBuscarLink, #buttonDescargarCola{
 	background-color: #0d69ef;
 	border:  none;
 	padding: 8px;
 	border-radius: 10px;
 }
 
-#botonDownloadSong:hover, #pushButtonBuscarLink:hover{
+#botonDownloadSong:hover, #pushButtonBuscarLink:hover, #buttonDescargarCola:hover{
 	background-color:#0c5fd7;
 }
 
@@ -243,6 +267,10 @@ detailsSongDownloadScroll{
 	border-bottom-left-radius:0px;
 	border: 2px solid #0d69f0 ;
 	border-left: none;
+}
+
+ #labelTituloPeso, #labelTituloNCanciones, #buttonReiniciarCola{
+	margin-top: 20px;
 }</string>
       </property>
       <property name="currentIndex">
@@ -612,8 +640,8 @@ detailsSongDownloadScroll{
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>478</width>
-                      <height>315</height>
+                      <width>443</width>
+                      <height>278</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -1060,6 +1088,177 @@ detailsSongDownloadScroll{
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="queueWidget">
+       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="2,1">
+        <item>
+         <widget class="QScrollArea" name="scrollAreaQueue">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContentsQueue">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>667</width>
+             <height>695</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="frameDerechoQueue">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_16">
+           <item>
+            <widget class="QFrame" name="frameDatosQueue">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_15">
+              <item>
+               <widget class="QLabel" name="tituloQueue">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>20</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Cola</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelTituloNCanciones">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>11</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Cantidad de canciones</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelDisplayNCanciones">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelTituloPeso">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>11</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Tamaño aproximado</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelDisplayPeso">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonReiniciarCola">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Vaciar Cola</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonDescargarCola">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Descargar Cola</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>369</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
