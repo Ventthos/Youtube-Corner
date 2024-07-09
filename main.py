@@ -1,10 +1,15 @@
+import os
+import random
+
 from InterfacesRaw.MainApp import Ui_MainWindow
 from CompleteUI.pantallasCarga import PantallaCargaPorcentaje
 from Utilities.Cancion import Cancion
+from CompleteUI.widgetCola import WidgetCola
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5 import QtCore
 
 from Utilities.YoutubeUtilities import YoutubeUtilities
 
@@ -12,6 +17,8 @@ from tkinter import messagebox, filedialog
 
 
 from pytube.exceptions import RegexMatchError
+import random
+
 from PIL import Image
 
 class MainApplication(Ui_MainWindow, QMainWindow):
@@ -22,6 +29,8 @@ class MainApplication(Ui_MainWindow, QMainWindow):
         self.pantallaCarga = None
         self.linkActual = ""
         self.queue: [Cancion] = []
+        #self.barraSpaceadora = QSpacerItem(20, 200, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalLayout_17.setAlignment(QtCore.Qt.AlignTop)
 
         self.songDetailsFieldDownload.hide()
         self.stackedWidget.setCurrentIndex(1)
@@ -36,6 +45,9 @@ class MainApplication(Ui_MainWindow, QMainWindow):
         self.lineEditAlbum.textChanged.connect(lambda: self.changeInPrevisualizer(self.albumDownloadSong,
                                                                                    self.lineEditAlbum.text()))
         self.botonDownloadSong.clicked.connect(self.startDownloadingSong)
+        self.downloadToolButton.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
+        self.queueToolButton.clicked.connect(self.showQueue)
+        self.botonAgregarCola.clicked.connect(self.addToQueue)
 
     def findSong(self):
         self.pantallaCarga = PantallaCargaPorcentaje("Buscando su canción, espere por favor...", False)
@@ -97,14 +109,40 @@ class MainApplication(Ui_MainWindow, QMainWindow):
         self.pantallaCarga.Porcentaje.setText(f"{porcentaje}%")
 
     def addToQueue(self):
+        randomNumber = random.randint(0, 10000)
+        ruta = f"img/videos/thumb_{randomNumber}"
+
+        while os.path.exists(ruta):
+            ruta = f"img/videos/thumb_{random.randint(0, 10000)}.png"
+            print(ruta)
+
+        os.replace("thumb.png", ruta)
         self.queue.append(Cancion(
             self.titleDownloadSong.text(),
             self.artistDownloadSong.text(),
             self.albumDownloadSong.text(),
             self.linkActual,
-            self.imgMusicDownload.pixmap()
+            ruta
+            #pytube.YouTube(self.linkActual).streams.get_audio_only().filesize_mb
         ))
+        self.stackedWidget.setCurrentIndex(1)
         messagebox.showinfo("Listo", "La canción se ha aregado a la cola, descarguela en la interfaz de cola")
+
+    def showQueue(self):
+        self.stackedWidget.setCurrentIndex(2)
+        #self.verticalLayout_17.removeItem(self.barraSpaceadora)
+        for i in range(self.verticalLayout_17.count()-1, -1, -1):
+            self.verticalLayout_17.itemAt(i).widget().hide()
+            self.verticalLayout_17.removeWidget(self.verticalLayout_17.itemAt(i).widget())
+        for cancion in self.queue:
+            widget = WidgetCola(cancion.titulo, cancion.artista, cancion.album, cancion.portada)
+            self.verticalLayout_17.addWidget(widget)
+
+    def closeEvent(self, event):
+        super().closeEvent(event)
+        for imagen in os.listdir("img/videos"):
+            f = os.path.join("img/videos", imagen)
+            os.remove(f)
 
 
 class FindSongThread(QThread):

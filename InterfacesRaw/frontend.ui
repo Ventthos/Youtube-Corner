@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1025</width>
-    <height>682</height>
+    <height>785</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -274,7 +274,7 @@ detailsSongDownloadScroll{
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="songDownloaderWidget">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -640,8 +640,8 @@ detailsSongDownloadScroll{
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>443</width>
-                      <height>278</height>
+                      <width>478</width>
+                      <height>313</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -1110,10 +1110,11 @@ detailsSongDownloadScroll{
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>667</width>
-             <height>695</height>
+             <width>664</width>
+             <height>677</height>
             </rect>
            </property>
+           <layout class="QVBoxLayout" name="verticalLayout_17"/>
           </widget>
          </widget>
         </item>
