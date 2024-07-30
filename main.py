@@ -14,7 +14,7 @@ from PyQt5 import QtCore
 from Utilities.YoutubeUtilities import YoutubeUtilities
 
 from tkinter import messagebox, filedialog
-
+import re
 
 from pytube.exceptions import RegexMatchError
 import random
@@ -48,6 +48,7 @@ class MainApplication(Ui_MainWindow, QMainWindow):
         self.downloadToolButton.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
         self.queueToolButton.clicked.connect(self.showQueue)
         self.botonAgregarCola.clicked.connect(self.addToQueue)
+        self.buttonDescargarCola.clicked.connect(self.downloadQueue)
 
     def findSong(self):
         self.pantallaCarga = PantallaCargaPorcentaje("Buscando su canción, espere por favor...", False)
@@ -110,7 +111,7 @@ class MainApplication(Ui_MainWindow, QMainWindow):
 
     def addToQueue(self):
         randomNumber = random.randint(0, 10000)
-        ruta = f"img/videos/thumb_{randomNumber}"
+        ruta = f"img/videos/thumb_{randomNumber}.png"
 
         while os.path.exists(ruta):
             ruta = f"img/videos/thumb_{random.randint(0, 10000)}.png"
@@ -123,26 +124,41 @@ class MainApplication(Ui_MainWindow, QMainWindow):
             self.albumDownloadSong.text(),
             self.linkActual,
             ruta
-            #pytube.YouTube(self.linkActual).streams.get_audio_only().filesize_mb
+            # pytube.YouTube(self.linkActual).streams.get_audio_only().filesize_mb
         ))
         self.stackedWidget.setCurrentIndex(1)
         messagebox.showinfo("Listo", "La canción se ha aregado a la cola, descarguela en la interfaz de cola")
 
     def showQueue(self):
         self.stackedWidget.setCurrentIndex(2)
-        #self.verticalLayout_17.removeItem(self.barraSpaceadora)
         for i in range(self.verticalLayout_17.count()-1, -1, -1):
             self.verticalLayout_17.itemAt(i).widget().hide()
             self.verticalLayout_17.removeWidget(self.verticalLayout_17.itemAt(i).widget())
         for cancion in self.queue:
-            widget = WidgetCola(cancion.titulo, cancion.artista, cancion.album, cancion.portada)
+            widget = WidgetCola(cancion)
             self.verticalLayout_17.addWidget(widget)
+
+    def downloadQueue(self):
+        direccion = filedialog.askdirectory()
+
+        if direccion != "":
+            self.pantallaCarga = PantallaCargaPorcentaje("Descargando cola, espere por favor...",
+                                                         True, "0%")
+            self.pantallaCarga.show()
+            self.thread = DownloadQueueThread(self.queue, direccion)
+
+        self.thread.avance.connect(self.updatePercentaje)
+        self.thread.finished.connect(self.finishDownload)
+        self.thread.start()
+
 
     def closeEvent(self, event):
         super().closeEvent(event)
         for imagen in os.listdir("img/videos"):
             f = os.path.join("img/videos", imagen)
             os.remove(f)
+
+
 
 
 class FindSongThread(QThread):
@@ -171,19 +187,19 @@ class FindSongThread(QThread):
         self.finished.emit(songInfo)
 
 
-
 class DownloadSongThread(QThread):
     finished = pyqtSignal()
     avance = pyqtSignal(int)
     error = pyqtSignal(str)
 
-    def __init__(self, link, direccion, titulo_cancion, artista_cancion, album_cancion):
+    def __init__(self, link, direccion, titulo_cancion, artista_cancion, album_cancion, imagenRoute = "thumb.png"):
         super().__init__()
         self.link = link
         self.direccion = direccion
         self.titulo_cancion = titulo_cancion
         self.artista_cancion = artista_cancion
         self.album_cancion = album_cancion
+        self.imagen = imagenRoute
 
     def run(self):
         self.avance.emit(10)
@@ -191,16 +207,47 @@ class DownloadSongThread(QThread):
         self.avance.emit(45)
         YoutubeUtilities.MP4ToMP3(direccion_mp4, self.direccion)
         self.avance.emit(80)
-        thumbnailraw = Image.open("thumb.png")
+        thumbnailraw = Image.open(self.imagen)
         thumbnailraw = thumbnailraw.resize((350, 350))
-        thumbnailraw.save("thumb.png")
+        thumbnailraw.save(self.imagen)
         self.avance.emit(90)
         YoutubeUtilities.changeAtributesToMP3(self.direccion, self.titulo_cancion, self.artista_cancion,
-                                              self.album_cancion,"thumb.png")
+                                              self.album_cancion,self.imagen)
         self.avance.emit(100)
         self.finished.emit()
 
 
+class DownloadQueueThread(QThread):
+    finished = pyqtSignal()
+    avance = pyqtSignal(float)
+    error = pyqtSignal(str)
+
+    def __init__(self, queue: [Cancion], direccion):
+        self.cancionesDescargadas = 0
+        self.queue: [Cancion] = queue
+        self.direccion = direccion
+        super().__init__()
+
+    def run(self):
+        for cancion in self.queue:
+            tituloLimpio = self.eliminar_signos_raros(cancion.titulo)
+            direccionCancion = os.path.join(self.direccion, tituloLimpio)
+            direccionCancion = direccionCancion + ".mp3"
+            direccion_mp4 = YoutubeUtilities.downloadMP4File(cancion.link, "./img/videos", True)
+            YoutubeUtilities.MP4ToMP3(direccion_mp4, direccionCancion)
+            thumbnailraw = Image.open(cancion.portada)
+            thumbnailraw = thumbnailraw.resize((350, 350))
+            thumbnailraw.save(cancion.portada)
+            YoutubeUtilities.changeAtributesToMP3(direccionCancion, cancion.titulo, cancion.artista,
+                                                  cancion.album, cancion.portada)
+            self.cancionesDescargadas += 1
+            self.avance.emit(self.cancionesDescargadas/len(self.queue) * 100)
+        self.finished.emit()
+
+    def eliminar_signos_raros(self, texto):
+        # Usar una expresión regular para conservar solo caracteres alfanuméricos y espacios
+        texto_limpio = re.sub(r'[^a-zA-Z0-9\s]', '', texto)
+        return texto_limpio
 
 if __name__ == "__main__":
     import sys
