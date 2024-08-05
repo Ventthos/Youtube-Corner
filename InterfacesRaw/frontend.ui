@@ -640,8 +640,8 @@ detailsSongDownloadScroll{
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>478</width>
-                      <height>313</height>
+                      <width>194</width>
+                      <height>270</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -1113,8 +1113,8 @@ detailsSongDownloadScroll{
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>664</width>
-             <height>677</height>
+             <width>667</width>
+             <height>693</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_17"/>
@@ -1188,35 +1188,7 @@ detailsSongDownloadScroll{
                  </font>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="labelTituloPeso">
-                <property name="font">
-                 <font>
-                  <family>Arial</family>
-                  <pointsize>11</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Tamaño aproximado</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="labelDisplayPeso">
-                <property name="font">
-                 <font>
-                  <family>Arial</family>
-                  <pointsize>11</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>TextLabel</string>
+                 <string>0</string>
                 </property>
                </widget>
               </item>

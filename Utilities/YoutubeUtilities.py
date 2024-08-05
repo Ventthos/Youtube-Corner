@@ -3,6 +3,7 @@ import pytube
 from moviepy.editor import *
 import os
 import requests
+from tkinter import messagebox
 
 
 class YoutubeUtilities:
@@ -18,8 +19,9 @@ class YoutubeUtilities:
     @staticmethod
     def MP4ToMP3(mp4, mp3):
         FILETOCONVERT = AudioFileClip(mp4)
-        FILETOCONVERT.write_audiofile(mp3)
+        FILETOCONVERT.write_audiofile(mp3, logger=None)
         FILETOCONVERT.close()
+
         print("termine el mp4")
         os.remove(mp4)
         return mp3

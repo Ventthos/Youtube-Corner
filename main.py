@@ -160,7 +160,6 @@ class MainApplication(Ui_MainWindow, QMainWindow):
 
 
 
-
 class FindSongThread(QThread):
     finished = pyqtSignal(tuple)
     error = pyqtSignal(str)
@@ -204,8 +203,14 @@ class DownloadSongThread(QThread):
     def run(self):
         self.avance.emit(10)
         direccion_mp4 = YoutubeUtilities.downloadMP4File(self.link, "./img/videos", True)
+
         self.avance.emit(45)
-        YoutubeUtilities.MP4ToMP3(direccion_mp4, self.direccion)
+        try:
+            YoutubeUtilities.MP4ToMP3(direccion_mp4, self.direccion)
+        except Exception as e:
+            messagebox.askokcancel("Error convirtiendo", str(e))
+            self.finished.emit()
+
         self.avance.emit(80)
         thumbnailraw = Image.open(self.imagen)
         thumbnailraw = thumbnailraw.resize((350, 350))
