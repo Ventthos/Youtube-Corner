@@ -1,3 +1,4 @@
+import math
 import os
 import random
 
@@ -6,8 +7,8 @@ from CompleteUI.pantallasCarga import PantallaCargaPorcentaje
 from Utilities.Cancion import Cancion
 from CompleteUI.widgetCola import WidgetCola
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QSpacerItem, QSizePolicy
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit
+from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5 import QtCore
 
@@ -29,6 +30,7 @@ class MainApplication(Ui_MainWindow, QMainWindow):
         self.pantallaCarga = None
         self.linkActual = ""
         self.queue: [Cancion] = []
+
         #self.barraSpaceadora = QSpacerItem(20, 200, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.verticalLayout_17.setAlignment(QtCore.Qt.AlignTop)
 
@@ -49,6 +51,14 @@ class MainApplication(Ui_MainWindow, QMainWindow):
         self.queueToolButton.clicked.connect(self.showQueue)
         self.botonAgregarCola.clicked.connect(self.addToQueue)
         self.buttonDescargarCola.clicked.connect(self.downloadQueue)
+        self.buttonReiniciarCola.clicked.connect(self.clearQueue)
+        self.editarPortadaDownloadButton.clicked.connect(self.changeImage)
+
+        rutaActual = os.getcwd()
+        rutaFinal = os.path.join(rutaActual, "_internal")
+
+        if os.path.exists(rutaFinal):
+            self.changeRoutesForExe()
 
     def findSong(self):
         self.pantallaCarga = PantallaCargaPorcentaje("Buscando su canción, espere por favor...", False)
@@ -99,12 +109,16 @@ class MainApplication(Ui_MainWindow, QMainWindow):
             self.thread.finished.connect(self.finishDownload)
             self.thread.start()
 
-    def finishDownload(self):
+    def finishDownload(self, queue=False):
+        mensaje = "Su canción se ha descargado exitosamente"
         self.pantallaCarga.close()
         self.pantallaCarga = None
         self.thread = None
         self.stackedWidget.setCurrentIndex(1)
-        messagebox.showinfo("Completado", "Su canción se ha descargado exitosamente")
+        if queue:
+            self.clearQueue()
+            mensaje = "La cola se ha descargado exitosamente"
+        messagebox.showinfo("Completado", mensaje)
 
     def updatePercentaje(self, porcentaje):
         self.pantallaCarga.Porcentaje.setText(f"{porcentaje}%")
@@ -135,8 +149,13 @@ class MainApplication(Ui_MainWindow, QMainWindow):
             self.verticalLayout_17.itemAt(i).widget().hide()
             self.verticalLayout_17.removeWidget(self.verticalLayout_17.itemAt(i).widget())
         for cancion in self.queue:
-            widget = WidgetCola(cancion)
+            widget = WidgetCola(cancion, self)
             self.verticalLayout_17.addWidget(widget)
+        self.labelDisplayNCanciones.setText(str(len(self.queue)))
+
+    def deleteFromQueue(self, cancion):
+        self.queue.remove(cancion)
+        self.showQueue()
 
     def downloadQueue(self):
         direccion = filedialog.askdirectory()
@@ -151,13 +170,30 @@ class MainApplication(Ui_MainWindow, QMainWindow):
         self.thread.finished.connect(self.finishDownload)
         self.thread.start()
 
+    def clearQueue(self):
+        self.queue.clear()
+        self.showQueue()
+
+    def changeImage(self):
+        imgRoute = filedialog.askopenfile(filetypes=(("Image File", ".png .jpg .jpeg"),))
+        if imgRoute is not None:
+            imgRoute = imgRoute.name
+            thumbnailraw = Image.open(imgRoute)
+            thumbnailraw = thumbnailraw.resize((350, 350))
+            thumbnailraw.save("thumb.png")
+            self.imgMusicDownload.setPixmap(QPixmap("thumb.png"))
+
+    def changeRoutesForExe(self):
+        mainRoute = "./_internal/img/"
+        self.imgLogo.setPixmap(QPixmap(mainRoute+"youtube-app--icon.webp"))
+        self.pushButtonBuscarLink.setIcon(QIcon(mainRoute + "lupa.png"))
+        self.buttonPlayDownload.setIcon(QIcon(mainRoute+"white-play-icon-png-6.webp"))
 
     def closeEvent(self, event):
         super().closeEvent(event)
         for imagen in os.listdir("img/videos"):
             f = os.path.join("img/videos", imagen)
             os.remove(f)
-
 
 
 class FindSongThread(QThread):
@@ -223,7 +259,7 @@ class DownloadSongThread(QThread):
 
 
 class DownloadQueueThread(QThread):
-    finished = pyqtSignal()
+    finished = pyqtSignal(bool)
     avance = pyqtSignal(float)
     error = pyqtSignal(str)
 
@@ -246,8 +282,8 @@ class DownloadQueueThread(QThread):
             YoutubeUtilities.changeAtributesToMP3(direccionCancion, cancion.titulo, cancion.artista,
                                                   cancion.album, cancion.portada)
             self.cancionesDescargadas += 1
-            self.avance.emit(self.cancionesDescargadas/len(self.queue) * 100)
-        self.finished.emit()
+            self.avance.emit(round(self.cancionesDescargadas/len(self.queue) * 100, 2))
+        self.finished.emit(True)
 
     def eliminar_signos_raros(self, texto):
         # Usar una expresión regular para conservar solo caracteres alfanuméricos y espacios

@@ -1,3 +1,5 @@
+import os
+
 from InterfacesRaw.Carga import Ui_Dialog
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QDialog, QMainWindow, QApplication
@@ -8,6 +10,13 @@ class PantallaCargaPorcentaje(QDialog, Ui_Dialog):
         super().__init__()
         super().setupUi(self)
         ruta_gif = "./img/loading2.gif"
+
+        rutaActual = os.getcwd()
+        rutaFinal = os.path.join(rutaActual, "_internal")
+
+        if os.path.exists(rutaFinal):
+            ruta_gif = "./_internal/img/loading2.gif"
+
         self.gif = QMovie(ruta_gif)
         self.imagen.setMovie(self.gif)
 
